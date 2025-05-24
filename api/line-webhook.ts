@@ -2,8 +2,10 @@ import { defineEventHandler, readBody } from 'h3'
 import { $fetch } from 'ofetch'
 
 export default defineEventHandler(async (event) => {
-  // GETリクエストは即レスポンス
-  if (event.method !== 'POST') {
+  // Vercel環境では event.node.req.method を使う
+  const method = event.method || event.node?.req?.method
+
+  if (method !== 'POST') {
     return { status: "ok", message: "This endpoint is for POST requests only." }
   }
 
