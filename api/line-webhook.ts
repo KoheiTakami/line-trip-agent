@@ -2,9 +2,9 @@ import { defineEventHandler, readBody } from 'h3'
 import { $fetch } from 'ofetch'
 
 export default defineEventHandler(async (event) => {
-  // POST以外は405を返す
+  // GETリクエストは即レスポンス
   if (event.method !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' }
+    return { status: "ok", message: "This endpoint is for POST requests only." }
   }
 
   const body = await readBody(event)
